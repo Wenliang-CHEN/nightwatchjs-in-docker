@@ -1,0 +1,18 @@
+version: "3"
+services:
+  web:
+    image: nightwatch:latest
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "4444:4444"
+    networks:
+      - webnet
+networks:
+  webnet:
