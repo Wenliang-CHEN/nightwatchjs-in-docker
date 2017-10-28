@@ -14,7 +14,8 @@ xdg-utils \
 libxss1 \
 libappindicator1 \ 
 libindicator7 \
-libgtk-3-0
+libgtk-3-0 \
+unzip
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get -y install nodejs
@@ -26,5 +27,11 @@ RUN dpkg -i google-chrome*.deb
 WORKDIR /app
 
 ADD . /app
+
+RUN wget http://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.0.jar -P tests/selenium
+
+RUN wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip -P tests/drivers -O temp.zip \
+&& unzip temp.zip \
+&& rm temp.zip
 
 CMD nightwatch tests
